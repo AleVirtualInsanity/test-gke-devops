@@ -6,7 +6,7 @@ ansiColor('xterm') {
             stage("Terraform Setup"){
 
 
-               sh('export PATH=$PATH:/usr/local/bin/')
+               sh('export PATH=$PATH:/usr/local/bin/terraform')
                sh('make install-terraform')
                dir('terraform'){
                   sh ('ls -larth')
