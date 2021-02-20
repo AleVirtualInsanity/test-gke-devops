@@ -26,5 +26,6 @@ def requests_count():
     res.append(generate_latest(NUM_REQUESTS))
     return Response(res, mimetype="text/plain")
 
-#python app.py
+EOF
+
 gunicorn -w 1 -b 0.0.0.0:8080 main:app
