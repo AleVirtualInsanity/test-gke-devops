@@ -15,8 +15,8 @@ app = Flask(__name__)
 def hello_cloud():
     return 'Hello World! This is Alessio first Cloud GCP web-app !!'
 
-app.run(host='0.0.0.0')
+app.run(host='127.0.0.1')
 
 EOF
 
-gunicorn -w 1 -b 0.0.0.0:8080 main:app
+gunicorn -w 1 -b 127.0.0.1:8080 main:app
