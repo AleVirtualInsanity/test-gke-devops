@@ -4,6 +4,13 @@ provider "google" {
  region      = "us-west1"
 }
 
+terraform {
+  backend "gcs"{
+    bucket      = "alessio_demo_bucket"
+    credentials = file("CREDENTIALS_FILE.json")
+  }
+}
+
 resource "random_id" "instance_id" {
  byte_length = 8
 }
