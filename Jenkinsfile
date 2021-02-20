@@ -14,7 +14,7 @@ ansiColor('xterm') {
                   sh('make install-terraform')
                   dir('terraform'){
 
-                     sh ('cat /root/.ssh/id_rsa.pub')
+                     sh ('cat ~/.ssh/id_rsa.pub')
                      
 
                      //sh('/usr/local/bin/terraform init')
