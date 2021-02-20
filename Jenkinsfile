@@ -7,6 +7,9 @@ ansiColor('xterm') {
 
 
                sh('export PATH=$PATH:/usr/local/bin/terraform')
+               sh  'export API_KEY=AIzaSyBmwXdtBXgKnVoJVc0wCq8lB6Zd_WRz6rQ"'
+
+
                sh('make install-terraform')
                dir('terraform'){
 
