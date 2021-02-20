@@ -2,14 +2,8 @@
 ansiColor('xterm') {
     stage ("xterm"){
       node("") {
-
-            stage('Checkout code') {
-                  steps {
-                        checkout scm
-                  }
-            }
          
-            stage("Terraform Setup of a Single GCP istance VM"){
+            stage("Deplying simple python web-app via Terraform on a Single GCP istance VM"){
             
                   sh('make install-terraform')
 
