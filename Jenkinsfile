@@ -18,8 +18,7 @@ ansiColor('xterm') {
                   }
                
             }
-
-         
+     
       }
     }
 }
