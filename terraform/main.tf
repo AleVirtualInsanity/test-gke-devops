@@ -29,7 +29,7 @@ resource "google_compute_instance" "default" {
  }
 
  metadata = {
-  ssh-keys = "alessio.iodice37:${file("~/.ssh/id_rsa.pub")}"
+  ssh-keys = "alessio.iodice37:${file("/root/.ssh/id_rsa.pub")}"
  }
  
 }
