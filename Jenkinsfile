@@ -19,13 +19,12 @@ ansiColor('xterm') {
 
              stage("Deploying simple python web-app via Terraform on GKE"){
             
-                  sh('make install-terraform')
 
-                  dir('terraform/gke'){   
+                  dir('terraform/kubernetes'){   
 
                      sh('/usr/local/bin/terraform init')                    
                      sh('/usr/local/bin/terraform plan')     
-                     //sh('echo yes | /usr/local/bin/terraform apply') 
+                     sh('echo yes | /usr/local/bin/terraform apply') 
                      sh('rm -rf .terraform')        
 
                   }        
