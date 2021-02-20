@@ -7,30 +7,27 @@ ansiColor('xterm') {
             stage("Terraform Setup"){
 
                environment {
-                   API_KEY = "AIzaSyBmwXdtBXgKnVoJVc0wCq8lB6Zd_WRz6rQ"
-               }
+                  API_KEY = "AIzaSyBmwXdtBXgKnVoJVc0wCq8lB6Zd_WRz6rQ"
+               
+                  sh('export PATH=$PATH:/usr/local/bin/terraform')
+                  //sh('export API_KEY=AIzaSyBmwXdtBXgKnVoJVc0wCq8lB6Zd_WRz6rQ')
 
+                  sh('make install-terraform')
+                  dir('terraform'){
 
-               sh('export PATH=$PATH:/usr/local/bin/terraform')
-               //sh('export API_KEY=AIzaSyBmwXdtBXgKnVoJVc0wCq8lB6Zd_WRz6rQ')
+                     sh ('ls -larth')
 
+                     sh('/usr/local/bin/terraform init')
+                     
+                     sh('/usr/local/bin/terraform plan')     
 
-               sh('make install-terraform')
-               dir('terraform'){
+                     sh('echo yes | /usr/local/bin/terraform apply') 
 
-                  sh ('ls -larth')
-
-                  sh('/usr/local/bin/terraform init')
-                  
-                  sh('/usr/local/bin/terraform plan')     
-
-                  sh('echo yes | /usr/local/bin/terraform apply') 
-
-                  sh('rm -rf .terraform')        
+                     sh('rm -rf .terraform')        
 
                   }
+               }
             }
-            
 
          
       }
