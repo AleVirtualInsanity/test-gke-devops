@@ -34,6 +34,16 @@ resource "google_compute_instance" "default" {
  
 }
 
+resource "google_compute_firewall" "default" {
+ name    = "flask-app-firewall"
+ network = "default"
+
+ allow {
+   protocol = "tcp"
+   ports    = ["5000"]
+ }
+}
+
 output "ip" {
  value = google_compute_instance.default.network_interface.0.access_config.0.nat_ip
 }
