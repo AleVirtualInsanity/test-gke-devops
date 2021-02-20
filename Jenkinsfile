@@ -6,8 +6,7 @@ ansiColor('xterm') {
          
             stage("Terraform Setup"){
 
-               environment {
-                  API_KEY = "AIzaSyBmwXdtBXgKnVoJVc0wCq8lB6Zd_WRz6rQ"
+            
                
                   sh('export PATH=$PATH:/usr/local/bin/terraform')
                   //sh('export API_KEY=AIzaSyBmwXdtBXgKnVoJVc0wCq8lB6Zd_WRz6rQ')
@@ -21,12 +20,12 @@ ansiColor('xterm') {
                      
                      sh('/usr/local/bin/terraform plan')     
 
-                     sh('echo yes | /usr/local/bin/terraform apply') 
+                     sh('export API_KEY=AIzaSyBmwXdtBXgKnVoJVc0wCq8lB6Zd_WRz6rQ; echo yes | /usr/local/bin/terraform apply') 
 
                      sh('rm -rf .terraform')        
 
                   }
-               }
+               
             }
 
          
