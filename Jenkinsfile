@@ -3,7 +3,7 @@ ansiColor('xterm') {
     stage ("xterm"){
       node("") {
          
-            stage("Deplying simple python web-app via Terraform on a Single GCP istance VM"){
+            stage("Deploying simple python web-app via Terraform on a Single GCP istance VM"){
             
                   sh('make install-terraform')
 

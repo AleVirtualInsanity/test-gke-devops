@@ -7,7 +7,7 @@ pip install flask
 #pip install prometheus_client
 
 
-cat > main.py << EOF
+cat > app.py << EOF
 from flask import Flask
 app = Flask(__name__)
 @app.route('/')
