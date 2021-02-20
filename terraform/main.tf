@@ -20,7 +20,7 @@ resource "google_compute_instance" "default" {
    }
  }
 
- metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync; pip install flask"
+ metadata_startup_script = "${file("start_app.sh")}"
  network_interface {
    network = "default"
    access_config {
