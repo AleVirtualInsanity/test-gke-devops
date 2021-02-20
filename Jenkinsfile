@@ -2,7 +2,12 @@
 ansiColor('xterm') {
     stage ("xterm"){
       node("") {
-         
+
+            stage('Checkout code') {
+                  steps {
+                        checkout scm
+                  }
+            }
          
             stage("Terraform Setup of a Single GCP istance VM"){
             
