@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_cloud():
-    return 'Hello World! This is Alessio first Cloud GCP web-application!'
+    return 'Hello World! This is Alessio first Cloud GCP web-app !!'
 
 app.run(host='0.0.0.0')
 
