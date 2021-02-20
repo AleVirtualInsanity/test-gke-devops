@@ -13,15 +13,13 @@ ansiColor('xterm') {
 
                   sh('make install-terraform')
                   dir('terraform'){
-
-                     sh ('cat ~/.ssh/id_rsa.pub')
                      
 
-                     //sh('/usr/local/bin/terraform init')
+                     sh('/usr/local/bin/terraform init')
                      
-                     //sh('/usr/local/bin/terraform plan')     
+                     sh('/usr/local/bin/terraform plan')     
 
-                     //sh('echo yes | /usr/local/bin/terraform apply') 
+                     sh('echo yes | /usr/local/bin/terraform apply') 
 
                      sh('rm -rf .terraform')        
 
