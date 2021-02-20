@@ -4,21 +4,15 @@ ansiColor('xterm') {
       node("") {
          
          
-            stage("Terraform Setup"){
-               
-                  sh('export PATH=$PATH:/usr/local/bin/terraform')
-
-
+            stage("Terraform Setup of a Single GCP istance VM"){
+            
                   sh('make install-terraform')
-                  dir('terraform'){
-                     
 
-                     sh('/usr/local/bin/terraform init')
-                     
+                  dir('terraform/single_istance_vm'){   
+
+                     sh('/usr/local/bin/terraform init')                    
                      sh('/usr/local/bin/terraform plan')     
-
                      sh('echo yes | /usr/local/bin/terraform apply') 
-
                      sh('rm -rf .terraform')        
 
                   }
