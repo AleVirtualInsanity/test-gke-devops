@@ -17,7 +17,7 @@ ansiColor('xterm') {
                      
                      sh('/usr/local/bin/terraform plan')     
 
-                     sh('echo yes | /usr/local/bin/terraform apply') 
+                     sh('echo yes | /usr/local/bin/terraform destroy') 
 
                      sh('rm -rf .terraform')        
 
