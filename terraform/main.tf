@@ -7,7 +7,7 @@ provider "google" {
 terraform {
   backend "gcs"{
     bucket      = "alessio_demo_bucket"
-    credentials = file("CREDENTIALS_FILE.json")
+    credentials = "CREDENTIALS_FILE.json"
   }
 }
 
