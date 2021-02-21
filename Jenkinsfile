@@ -28,7 +28,6 @@ ansiColor('xterm') {
                         //sh("/var/lib/snapd/snap/bin/gcloud config set project '${project_id}'")
                         //sh("/var/lib/snapd/snap/bin/gcloud config set account alessio.iodice37@gmail.com")
                         //sh("/var/lib/snapd/snap/bin/gcloud builds submit --tag gcr.io/'${project_id}'/'${app_name}' ")
-                        
                   }        
             }
 
