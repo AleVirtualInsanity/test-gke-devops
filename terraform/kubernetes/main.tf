@@ -30,7 +30,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   }
   
 }
-/*
+
 resource "kubernetes_deployment" "example" {
   metadata {
     name = "terraform-example"
@@ -40,7 +40,7 @@ resource "kubernetes_deployment" "example" {
   }
 
   spec {
-    replicas = 3
+    replicas = 1
 
     selector {
       match_labels = {
@@ -57,7 +57,7 @@ resource "kubernetes_deployment" "example" {
 
       spec {
         container {
-          image = "nginx:1.7.8"
+          image = "gcr.io/neat-phoenix-305313/helloworld-gke:latest"
           name  = "example"
 
           resources {
@@ -90,7 +90,7 @@ resource "kubernetes_deployment" "example" {
     }
   }
 }
-
+/*
 resource "kubernetes_service" "test" {
   metadata {
     name      = "nginx"
