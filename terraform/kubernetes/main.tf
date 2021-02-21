@@ -28,6 +28,8 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     preemptible  = true
     machine_type = "e2-medium"
   }
+
+  depends_on = ["google_container_cluster.primary"]
   
 }
 
@@ -76,6 +78,7 @@ resource "kubernetes_deployment" "hello-world-on-gke-deploy" {
       }
     }
   }
+  depends_on = ["google_container_cluster.primary","google_container_node_pool.primary_preemptible_nodes"]
 }
 
 resource "kubernetes_pod" "pod" {
@@ -92,6 +95,7 @@ resource "kubernetes_pod" "pod" {
       name  = "helloworld-gke-1"
     }
   }
+  depends_on = ["google_container_cluster.primary","google_container_node_pool.primary_preemptible_nodes","kubernetes_deployment.hello-world-on-gke-deploy"]
 }
 
 resource "kubernetes_service" "external-ip-hello-world" {
@@ -110,6 +114,7 @@ resource "kubernetes_service" "external-ip-hello-world" {
 
     type = "LoadBalancer"
   }
+  depends_on = ["google_container_cluster.primary","google_container_node_pool.primary_preemptible_nodes","kubernetes_deployment.hello-world-on-gke-deploy","kubernetes_pod.pod"]
 }
 
 output "ip" {
