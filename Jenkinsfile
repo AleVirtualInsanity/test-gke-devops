@@ -24,6 +24,7 @@ ansiColor('xterm') {
             
                   dir('app'){   
                         sh ('cat CREDENTIALS_FILE.json  | docker login -u _json_key --password-stdin https://gcr.io')
+                        sh('gcloud config set project ${project_id}')
                         sh('/var/lib/snapd/snap/bin/gcloud builds submit --tag gcr.io/${project_id}/${app_name}')
 
                   }        
