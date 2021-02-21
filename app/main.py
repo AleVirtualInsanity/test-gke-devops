@@ -7,7 +7,7 @@ NUM_REQUESTS = Counter("num_requests", "Number of requests", ["endpoint"])
 @app.route('/')
 def hello_world():
     NUM_REQUESTS.labels("/").inc()
-    return 'Hello, World!'
+    return 'Hello World from Alessio GKE cluster!'
 
 @app.route("/metrics")
 def requests_count():
@@ -15,4 +15,3 @@ def requests_count():
     res.append(generate_latest(NUM_REQUESTS))
     return Response(res, mimetype="text/plain")
 
-requirements.txt
