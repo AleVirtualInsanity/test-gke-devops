@@ -3,8 +3,9 @@ ansiColor('xterm') {
     stage ("xterm"){
       node("") {
 
-            def project_id = "neat-phoenix-305313"
-            def app_name = "helloworld-gke"
+            def project_id    = "neat-phoenix-305313"
+            def app_name   = "helloworld-gke"
+            def tf_env_path = "/usr/local/bin/"
          
             stage("Deploying HelloWorld via Terraform on a Single GCP istance VM"){
             
@@ -12,9 +13,9 @@ ansiColor('xterm') {
 
                   dir('terraform/single_istance_vm'){   
 
-                     sh('/usr/local/bin/terraform init')                    
-                     sh('/usr/local/bin/terraform plan')     
-                     sh('echo yes | /usr/local/bin/terraform apply') 
+                     sh("'${tf_env_path}'terraform init")                    
+                     sh("'${tf_env_path}'terraform plan")    
+                     sh(" echo yes | '${tf_env_path}'terraform apply")   
                      sh('rm -rf .terraform')        
 
                   }        
@@ -36,10 +37,10 @@ ansiColor('xterm') {
 
                   dir('terraform/kubernetes'){   
 
-                     sh('/usr/local/bin/terraform init')                    
-                     sh('/usr/local/bin/terraform plan')     
-                     sh('echo yes | /usr/local/bin/terraform apply') 
-                     sh('rm -rf .terraform')        
+                     sh("'${tf_env_path}'terraform init")                    
+                     sh("'${tf_env_path}'terraform plan")    
+                     sh(" echo yes | '${tf_env_path}'terraform apply")   
+                     sh('rm -rf .terraform')         
 
                   }        
             }

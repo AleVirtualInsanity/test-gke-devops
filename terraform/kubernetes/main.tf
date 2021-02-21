@@ -37,6 +37,24 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
+resource "kubernetes_pod" "pod" {
+  metadata {
+    name = "terraform-example"
+    labels = {
+      app = "MyApp"
+    }
+  }
+
+  spec {
+    container {
+      image = "gcr.io/neat-phoenix-305313/helloworld-gke:latest"
+      name  = "helloworld-gke-1"
+    }
+  }
+  depends_on = ["google_container_cluster.primary","google_container_node_pool.primary_preemptible_nodes"]
+}
+
+
 resource "kubernetes_deployment" "hello-world-on-gke-deploy" {
   metadata {
     name = "hello-world-on-gke"
@@ -81,22 +99,6 @@ resource "kubernetes_deployment" "hello-world-on-gke-deploy" {
   depends_on = ["google_container_cluster.primary","google_container_node_pool.primary_preemptible_nodes"]
 }
 
-resource "kubernetes_pod" "pod" {
-  metadata {
-    name = "terraform-example"
-    labels = {
-      app = "MyApp"
-    }
-  }
-
-  spec {
-    container {
-      image = "gcr.io/neat-phoenix-305313/helloworld-gke:latest"
-      name  = "helloworld-gke-1"
-    }
-  }
-  depends_on = ["google_container_cluster.primary","google_container_node_pool.primary_preemptible_nodes","kubernetes_deployment.hello-world-on-gke-deploy"]
-}
 
 resource "kubernetes_service" "external-ip-hello-world" {
   metadata {
