@@ -4,4 +4,10 @@ install-terraform:
 		&& chmod +x tf/terraform \
 		&& sudo mv ./tf/terraform /usr/local/bin/terraform \
 		&& rm -rf tfzip tf
+
+docker-push:
+	cat CREDENTIALS_FILE.json  | docker login -u _json_key --password-stdin https://gcr.io \
+		&& /var/lib/snapd/snap/bin/gcloud config set project ${project_id}\
+		&&  /var/lib/snapd/snap/bin/gcloud builds submit --tag gcr.io/${project_id}/${app_name} 
+		
 		
