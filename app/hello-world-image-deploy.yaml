@@ -1,0 +1,41 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "hello-world-on-gke"
+  namespace: "default"
+  labels:
+    app: "hello-world-on-gke"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "hello-world-on-gke"
+  template:
+    metadata:
+      labels:
+        app: "hello-world-on-gke"
+    spec:
+      containers:
+      - name: "helloworld-gke-1"
+        image: "gcr.io/neat-phoenix-305313/helloworld-gke:latest"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "hello-world-on-gke-horiz-pod-autoscaler"
+  namespace: "default"
+  labels:
+    app: "hello-world-on-gke"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "hello-world-on-gke"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80

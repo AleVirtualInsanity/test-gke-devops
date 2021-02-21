@@ -6,7 +6,7 @@ ansiColor('xterm') {
             def project_id = "neat-phoenix-305313"
             def app_name = "helloworld-gke"
          
-            stage("Deploying simple python web-app via Terraform on a Single GCP istance VM"){
+            stage("Deploying HelloWorld via Terraform on a Single GCP istance VM"){
             
                   sh('make install-terraform')
 
@@ -31,7 +31,7 @@ ansiColor('xterm') {
                   }        
             }
 
-             stage("Deploying simple python web-app via Terraform on GKE"){
+             stage("Deploying HelloWorld  via Terraform on GKE pod"){
             
 
                   dir('terraform/kubernetes'){   
@@ -43,7 +43,6 @@ ansiColor('xterm') {
 
                   }        
             }
-
 
 
       }

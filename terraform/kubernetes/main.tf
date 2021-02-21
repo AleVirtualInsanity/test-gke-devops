@@ -31,35 +31,37 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   
 }
 
-resource "kubernetes_deployment" "example" {
+provider "kubernetes" {
+  config_path = "~/.kube/config"
+}
+
+resource "kubernetes_deployment" "hello-world-on-gke-deploy" {
   metadata {
-    name = "terraform-example"
+    name = "hello-world-on-gke"
     labels = {
-      test = "MyExampleApp"
+      App = "hello-world-on-gke"
     }
   }
 
   spec {
-    replicas = 1
-
+    replicas = 3
     selector {
       match_labels = {
-        test = "MyExampleApp"
+        App = "hello-world-on-gke"
       }
     }
-
     template {
       metadata {
         labels = {
-          test = "MyExampleApp"
+          App = "hello-world-on-gke"
         }
       }
-
       spec {
         container {
           image = "gcr.io/neat-phoenix-305313/helloworld-gke:latest"
-          name  = "example"
+          name  = "helloworld-gke-1"
 
+         
           resources {
             limits = {
               cpu    = "0.5"
@@ -70,42 +72,46 @@ resource "kubernetes_deployment" "example" {
               memory = "50Mi"
             }
           }
-
-          liveness_probe {
-            http_get {
-              path = "/nginx_status"
-              port = 80
-
-              http_header {
-                name  = "X-Custom-Header"
-                value = "Awesome"
-              }
-            }
-
-            initial_delay_seconds = 3
-            period_seconds        = 3
-          }
         }
       }
     }
   }
 }
-/*
-resource "kubernetes_service" "test" {
+
+resource "kubernetes_pod" "pod" {
   metadata {
-    name      = "nginx"
-    namespace = "default"
-  }
-  spec {
-    selector = {
-      app = kubernetes_deployment.test.spec.0.template.0.metadata.0.labels.app
+    name = "terraform-example"
+    labels = {
+      app = "MyApp"
     }
-    type = "LoadBalancer"
-    port {
-      protocol = "TCP"
-      port= 80
-      targetPort= 8080
+  }
+
+  spec {
+    container {
+      image = "gcr.io/neat-phoenix-305313/helloworld-gke:latest"
+      name  = "helloworld-gke-1"
     }
   }
 }
-*/
+
+resource "kubernetes_service" "external-ip-hello-world" {
+  metadata {
+    name = "external-ip-hello-world"
+  }
+  spec {
+    selector = {
+      app = kubernetes_pod.pod.metadata.0.labels.app
+    }
+    session_affinity = "ClientIP"
+    port {
+      port        = 80
+      target_port = 8080
+    }
+
+    type = "LoadBalancer"
+  }
+}
+
+output "ip" {
+ value = kubernetes_service.external-ip-hello-world.status.0.load_balancer.0.ingress.0.ip
+}
