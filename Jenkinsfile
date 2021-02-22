@@ -7,8 +7,8 @@ ansiColor('xterm') {
             def app_name   = "helloworld-gke"
             def tf_env_path = "/usr/local/bin/"
             def gcloud_env_path = "/var/lib/snapd/snap/bin/"
-            def gcloud_auth = ""
             def account_email = "alessio.iodice37@gmail.com"
+            def credentials = "CREDENTIALS_FILE.json "
          
             stage("Deploying HelloWorld via Terraform on a Single GCP istance VM"){
             
@@ -27,14 +27,14 @@ ansiColor('xterm') {
             stage("Build and Push image on Docker Container Registry"){
             
                   dir('app'){   
-                        sh ('cat CREDENTIALS_FILE.json  | docker login -u _json_key --password-stdin https://gcr.io')
+                        sh ("cat  '${credentials}' | docker login -u _json_key --password-stdin https://gcr.io")
                         sh("'${gcloud_env_path}'gcloud config set project '${project_id}'")
                         sh("'${gcloud_env_path}'gcloud config set account '${account_email}' ")
-                        sh("'${gcloud_env_path}'gcloud auth activate-service-account --key-file=CREDENTIALS_FILE.json")
+                        sh("'${gcloud_env_path}'gcloud auth activate-service-account --key-file='${credentials}'")
                         sh("'${gcloud_env_path}'gcloud builds submit --tag gcr.io/'${project_id}'/'${app_name}' ")
                   }        
             }
-            /*
+            
              stage("Deploying HelloWorld  via Terraform on GKE pod"){
             
 
@@ -47,7 +47,7 @@ ansiColor('xterm') {
 
                   }        
             }
-            */
+            
 
 
       }
