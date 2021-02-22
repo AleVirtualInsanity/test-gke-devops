@@ -28,20 +28,12 @@ ansiColor('xterm') {
             
                   dir('app'){   
 
-                        sh (" '${gcloud_env_path}'gcloud auth login --no-launch-browser  ")
-
-                        timeout(time: 300, unit: 'SECONDS') {
-                              gcloud_auth = input
-                              (
-                                    id: 'gcloud_auth', message: 'Please provide GCLOUD returned Token: ', parameters: 
-                                    [ [$class: 'TextParameterDefinition', defaultValue: '', description: '', name: 'GCLOUD_AUTH:'] ]
-                              )
-                        }
-
-                        //sh ('cat CREDENTIALS_FILE.json  | docker login -u _json_key --password-stdin https://gcr.io')
-                        //sh("'${gcloud_env_path}'gcloud config set project '${project_id}'")
-                        //sh("'${gcloud_env_path}'gcloud config set account '${account_email}' ")
-                        //sh("'${gcloud_env_path}'gcloud builds submit --tag gcr.io/'${project_id}'/'${app_name}' ")
+                 
+                        sh("'${gcloud_env_path}'gcloud auth activate-service-account --key-file=CREDENTIALS_FILE.json")
+                        sh ('cat CREDENTIALS_FILE.json  | docker login -u _json_key --password-stdin https://gcr.io')
+                        sh("'${gcloud_env_path}'gcloud config set project '${project_id}'")
+                        sh("'${gcloud_env_path}'gcloud config set account '${account_email}' ")
+                        sh("'${gcloud_env_path}'gcloud builds submit --tag gcr.io/'${project_id}'/'${app_name}' ")
                   }        
             }
             /*
