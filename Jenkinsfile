@@ -9,6 +9,7 @@ ansiColor('xterm') {
             def gcloud_env_path = "/var/lib/snapd/snap/bin/"
             def account_email = "alessio.iodice37@gmail.com"
             def credentials = "CREDENTIALS_FILE.json "
+            def gke_cluster_name = "alessio-gke-cluster"
          
             stage("Deploying HelloWorld via Terraform on a Single GCP istance VM"){
             
@@ -40,10 +41,11 @@ ansiColor('xterm') {
 
                   dir('terraform/kubernetes'){   
 
-                     sh("'${tf_env_path}'terraform init")                    
-                     sh("'${tf_env_path}'terraform plan")    
-                     sh(" echo yes | '${tf_env_path}'terraform apply")   
-                     sh('rm -rf .terraform')         
+                        sh("'${gcloud_env_path}'gcloud container clusters get-credentials ${gke_cluster_name}  --zone=us-west1")    // identifying GKE cluster
+                        sh("'${tf_env_path}'terraform init")                   
+                        sh("'${tf_env_path}'terraform plan")    
+                        sh(" echo yes | '${tf_env_path}'terraform apply")   
+                        sh('rm -rf .terraform')         
 
                   }        
             }
