@@ -25,7 +25,7 @@ ansiColor('xterm') {
                   }        
             }
 
-            stage("Build and Push image on Docker Container Registry"){
+            stage("Build and Push HelloWorld app image on Docker Container Registry"){
             
                   dir('app'){   
                         sh ("cat ${credentials} | docker login -u _json_key --password-stdin https://gcr.io")
